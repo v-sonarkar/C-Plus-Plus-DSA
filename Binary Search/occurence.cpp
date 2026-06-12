@@ -1,7 +1,9 @@
-// First and Last Element in a Sorted Array
+// Occurrence of an Element in a Sorted Array
 #include <iostream>
 #include <vector>
-std::pair<int, int> findFirstAndLast(const std::vector<int>& arr, int target) {
+using namespace std;
+
+int countOccurrences(const vector<int>& arr, int target) {
     int left = 0;
     int right = arr.size() - 1;
     int first = -1, last = -1;
@@ -11,8 +13,8 @@ std::pair<int, int> findFirstAndLast(const std::vector<int>& arr, int target) {
         int mid = left + (right - left) / 2;
 
         if (arr[mid] == target) {
-            first = mid; // Update first occurrence
-            right = mid - 1; // Continue searching in the left half
+            first = mid;
+            right = mid - 1;
         } else if (arr[mid] < target) {
             left = mid + 1;
         } else {
@@ -29,8 +31,8 @@ std::pair<int, int> findFirstAndLast(const std::vector<int>& arr, int target) {
         int mid = left + (right - left) / 2;
 
         if (arr[mid] == target) {
-            last = mid; // Update last occurrence
-            left = mid + 1; // Continue searching in the right half
+            last = mid;
+            left = mid + 1;
         } else if (arr[mid] < target) {
             left = mid + 1;
         } else {
@@ -38,21 +40,20 @@ std::pair<int, int> findFirstAndLast(const std::vector<int>& arr, int target) {
         }
     }
 
-    return {first, last};
+    if (first == -1) {
+        return 0; // Element not found
+    }
+
+    return last - first + 1; // Return the count of occurrences
 }
 
 int main() {
-    std::vector<int> sortedArray = {1, 2, 3, 4, 5, 5, 5, 6, 7, 8, 9, 10};
+    vector<int> sortedArray = {1, 2, 3, 4, 5, 5, 5, 6, 7, 8, 9, 10};
     int target = 5;
 
-    auto result = findFirstAndLast(sortedArray, target);
+    int count = countOccurrences(sortedArray, target);
 
-    if (result.first != -1) {
-        std::cout << "Element " << target << " found at indices: " << result.first << " and " << result.second << std::endl;
-    } else {
-        std::cout << "Element " << target << " not found in the array." << std::endl;
-    }
+    cout << "Element " << target << " occurs " << count << " times in the array." << endl;
 
     return 0;
 }
-
