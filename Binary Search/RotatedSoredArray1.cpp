@@ -1,6 +1,8 @@
 // Rotated Sorted Array Implementation
 //All elements are distinct in the array
 //Indentify the sorted half of the array and determine if the target is in that half or the other half, then adjust the search space accordingly.
+//Sorted halfy may or may not contain the target element,so we need to check both halves of the array in each iteration of the binary search. This way we can efficiently find the target element in O(log n) time complexity.
+//Pick the min element from sorted half and then eliminate it.
 // Time Complexity: O(log n)
 // Space Complexity: O(1)
 // Find the index of a target element in a rotated sorted array
