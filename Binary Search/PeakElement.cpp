@@ -5,28 +5,40 @@
 #include <vector>
 #include <iostream>
 
-int findPeakElement(const std::vector<int>& arr) {
-    int low = 0;
-    int high = arr.size() - 1;
+#include <vector>
 
+using namespace std;
+
+int findPeakElement(vector<int> &arr) {
+    int n = arr.size();
+    
+    // Edge cases
+    if (n == 1) return 0;
+    if (arr[0] > arr[1]) return 0;
+    if (arr[n - 1] > arr[n - 2]) return n - 1;
+    
+    // Binary search boundaries
+    int low = 1, high = n - 2;
+    
     while (low <= high) {
-        int mid = low + (high - low) / 2;
-
-        // Check if mid is a peak element
-        if ((mid == 0 || arr[mid] > arr[mid - 1]) && (mid == arr.size() - 1 || arr[mid] > arr[mid + 1])) {
+        int mid = (low + high) / 2;
+        
+        // If mid is a peak element
+        if (arr[mid] > arr[mid - 1] && arr[mid] > arr[mid + 1]) {
             return mid;
         }
-        // If the element to the left of mid is greater, then there must be a peak element on the left side
-        else if (mid > 0 && arr[mid - 1] > arr[mid]) {
-            high = mid - 1;
-        }
-        // Otherwise, there must be a peak element on the right side
-        else {
+        
+        // If we are on an increasing slope, the peak is to the right
+        else if (arr[mid] > arr[mid - 1]) {
             low = mid + 1;
         }
+        // If we are on a decreasing slope (or a local valley), the peak is to the left
+        else {
+            high = mid - 1;
+        }
     }
-
-    return -1; // No peak element found
+    
+    return -1;
 }
 
 int main() {
