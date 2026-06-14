@@ -1,7 +1,7 @@
 // Nth Root of a Number
 // Time Complexity: O(log n)
 // Space Complexity: O(1)
-//using linear search approach will give us O(n) time complexity but using binary search we can reduce it to O(log n)
+// using linear search approach will give us O(n) time complexity but using binary search we can reduce it to O(log n)
 
 #include <iostream>
 using namespace std;
