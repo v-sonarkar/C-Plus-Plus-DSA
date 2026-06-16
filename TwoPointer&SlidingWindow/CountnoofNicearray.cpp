@@ -9,28 +9,25 @@
 using namespace std;
 
 int numberOfSubarrays(vector<int>& nums, int k) {
-    // Implementation for counting nice subarrays
     int count = 0;
-    int left = 0, right = 0;
+    int left = 0;
     int oddCount = 0;
 
-    while (right < nums.size()) {
-        if (nums[right] % 2 == 1) {
+    for (int right = 0; right < nums.size(); right++) {
+        if (nums[right] % 2 != 0) {
             oddCount++;
         }
 
         while (oddCount > k) {
-            if (nums[left] % 2 == 1) {
+            if (nums[left] % 2 != 0) {
                 oddCount--;
             }
             left++;
         }
 
         if (oddCount == k) {
-            count++;
+            count += right - left + 1; // Count all subarrays ending at 'right' with exactly k odd numbers
         }
-
-        right++;
     }
 
     return count;
