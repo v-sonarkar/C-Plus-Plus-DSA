@@ -14,10 +14,11 @@ int main() {
     s.insert(9);
 
     cout << "Elements in the ordered set: ";
-    for (const auto& elem : s) {
-        cout << elem << " ";
+    for (int ele : s) {
+        cout << ele << " ";
     }
     cout << endl;
 
     return 0;
 }
+
