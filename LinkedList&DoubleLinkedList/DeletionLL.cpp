@@ -22,30 +22,43 @@ void printList(Node* head) {
     cout << endl;
 }
 
-void deleteNode(Node*& head, int key) {
-    if (head == nullptr) return;
-
-    // If the node to be deleted is the head node
-    if (head->val == key) {
-        Node* temp = head;
-        head = head->next;
-        delete temp;
-        return;
-    }
-
-    Node* current = head;
-    while (current->next != nullptr && current->next->val != key) {
-        current = current->next;
-    }
-
-    // If the node was found, delete it
-    if (current->next != nullptr) {
-        Node* temp = current->next;
-        current->next = current->next->next;
-        delete temp;
-    }
+void deleteAtHead(Node*& head) {
+    if (head == nullptr) return; // List is empty
+    Node* temp = head; // Store the current head
+    head = head->next; // Move head to the next node
+    delete temp; // Delete the old head
 }
 
+void deleteAtEnd(Node*& head) {
+    if (head == nullptr) return; // List is empty
+    if (head->next == nullptr) { // Only one node in the list
+        delete head;
+        head = nullptr;
+        return;
+    }
+    Node* current = head;
+    while (current->next->next != nullptr) { // Traverse to the second last node
+        current = current->next;
+    }
+    delete current->next; // Delete the last node
+    current->next = nullptr; // Set the next of second last node to null
+}
+ void deleteAtPosition(Node*& head, int position) {
+    if (head == nullptr) return; // List is empty
+    if (position == 0) { // Delete the head node
+        deleteAtHead(head);
+        return;
+    }
+    Node* current = head;
+    for (int i = 0; i < position - 1 && current->next != nullptr; i++) {
+        current = current->next;
+    }
+    if (current->next == nullptr) return; // Position is out of bounds
+    Node* temp = current->next; // Store the node to be deleted
+    current->next = current->next->next; // Bypass the node to be deleted
+    delete temp; // Delete the node
+
+}
 
 
 int main() {

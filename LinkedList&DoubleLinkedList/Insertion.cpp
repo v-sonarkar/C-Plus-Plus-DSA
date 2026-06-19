@@ -23,6 +23,11 @@ void printList(Node* head) {
 }
 //insert a new node at the beginning of the linked list
 void insertNode(Node*& head, int key) {
+
+    if (head == nullptr) {
+        head = new Node(key);
+        return;
+    }
     Node* newNode = new Node(key);
     newNode->next = head;
     head = newNode;
@@ -35,7 +40,7 @@ void insertNodeAtEnd(Node*& head, int key) {
         return;
     }
     Node* current = head;
-    while (current->next != nullptr) {
+    while (current->next != nullptr) { //Null se pehle tak jao
         current = current->next;
     }
     current->next = newNode;
@@ -57,7 +62,7 @@ void insertNodeAtPosition(Node*& head, int key, int position) {
         delete newNode;
         return;
     }
-    newNode->next = current->next;
+    newNode->next = current->next; // Point new node to the next node
     current->next = newNode;
 }
 

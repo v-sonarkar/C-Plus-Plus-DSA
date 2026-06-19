@@ -1,10 +1,9 @@
 // User defined Linked List class implementation
-
 #include <iostream>
 using namespace std;
 
 class Node
-{
+{ // User defined Node class for linked list
 public:
     int val;
     Node *next;
@@ -17,40 +16,51 @@ public:
 };
 
 class LinkedList
-{
+{ // User defined Linked List class
+
 public:
-    Node *head;
+    Node *head = nullptr;
+
     LinkedList()
     {
         head = nullptr;
     }
 
-    void insertAtEnd(int key)
+    void insertAtEnd(int val)
     {
-        Node *newNode = new Node(key);
+        Node *newNode = new Node(val);
         if (head == nullptr)
         {
             head = newNode;
-            return;
         }
-        Node *current = head;
-        while (current->next != nullptr)
+        else
         {
-            current = current->next;
+            Node *current = head;
+            while (current->next != nullptr)
+            {
+                current = current->next;
+            }
+            current->next = newNode;
         }
-        current->next = newNode;
     }
 
-    void insertAtBeginning(int key)
+    void insertAtBeginning(int val)
     {
-        Node *newNode = new Node(key);
-        newNode->next = head;
-        head = newNode;
+        Node *newNode = new Node(val);
+        if (head == nullptr)
+        {
+            head = newNode;
+        }
+        else
+        {
+            newNode->next = head;
+            head = newNode;
+        }
     }
 
-    void insertAtPosition(int key, int position)
+    void insertAtPosition(int val, int position)
     {
-        Node *newNode = new Node(key);
+        Node *newNode = new Node(val);
         if (position == 0)
         {
             newNode->next = head;
@@ -71,7 +81,8 @@ public:
         newNode->next = current->next;
         current->next = newNode;
     }
-    void printList()
+
+    void display()
     {
         Node *current = head;
         while (current != nullptr)
@@ -89,18 +100,11 @@ int main()
     list.insertAtEnd(10);
     list.insertAtEnd(20);
     list.insertAtEnd(30);
-    list.insertAtEnd(40);
-    list.insertAtEnd(50);
-
-    list.printList();
-
     list.insertAtBeginning(5);
-
     list.insertAtPosition(15, 2);
-    list.insertAtPosition(25, 3);
-    list.insertAtPosition(35, 5);
 
-    list.printList();
+    cout << "Linked List: ";
+    list.display();
 
     return 0;
 }
