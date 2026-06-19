@@ -54,9 +54,9 @@ void deleteAtEnd(Node*& head) {
         current = current->next;
     }
     if (current->next == nullptr) return; // Position is out of bounds
-    Node* temp = current->next; // Store the node to be deleted
-    current->next = current->next->next; // Bypass the node to be deleted
-    delete temp; // Delete the node
+    
+    current->next = current->next->next; // Bypass the node to
+    delete current->next; // Delete the node
 
 }
 

@@ -89,6 +89,65 @@ public:
         size++;
     }
 
+     void deleteAtHead()
+    {
+        if (head == nullptr)
+            return;
+        Node *temp = head;
+        head = head->next;
+        delete temp;
+        size--;
+    }
+
+     void deleteAtEnd()
+    {
+        if (head == nullptr)
+            return;
+        if (head->next == nullptr)
+        {
+            delete head;
+            head = nullptr;
+            tail = nullptr;
+            size--;
+            return;
+        }
+        Node *current = head;
+        while (current->next != tail)
+        {
+            current = current->next;
+        }
+        delete tail;
+        tail = current;
+        tail->next = nullptr;
+        size--;
+    }
+
+     void deleteAtPosition(int position)
+    {
+        if (position < 0 || position >= size)
+        {
+            cout << "Invalid position" << endl;
+            return;
+        }
+        if (position == 0)
+        {
+            deleteAtHead();
+            return;
+        }
+        if (position == size - 1)
+        {
+            deleteAtEnd();
+            return;
+        }
+        Node *current = head;
+        for (int i = 0; i < position - 1; i++)
+        {
+            current = current->next;
+        }
+        Node *temp = current->next; // Node to be deleted
+        current->next = temp->next;
+        delete temp; // Delete the node
+    }
     void printList()
     {
         Node *current = head;
@@ -114,5 +173,18 @@ int main()
 
     cout << "Size of the linked list: " << list.size << endl;
 
+    list.deleteAtHead();
+    cout << "After deleting head : "; 
+    list.printList();
+    list.deleteAtEnd();
+    cout << "After deleting end: ";
+    list.printList();
+    list.deleteAtPosition(1);
+    cout << "After deleting at position 1: ";
+    list.printList();
+
+
     return 0;
 }
+
+
