@@ -1,5 +1,6 @@
 
 // Finding the intersection of two linked lists
+
 #include <iostream>
 using namespace std;
 
@@ -16,15 +17,11 @@ public:
     }
 };
 
-Node *findIntersection(Node *head1, Node *head2)
+// optimized approach is to use two pointers, one for each linked list. We traverse both lists simultaneously, and when a pointer reaches the end of its list, we redirect it to the head of the other list. If there is an intersection, the two pointers will eventually meet at the intersection point after at most two passes through the lists. If there is no intersection, both pointers will reach the end (nullptr) at the same time.
+Node *findIntersectionOptimized(Node *head1, Node *head2)
 {
-    if (head1 == nullptr || head2 == nullptr)
-        return nullptr;
-
     Node *current1 = head1;
     Node *current2 = head2;
-
-    // Traverse both lists to find their lengths
     int len1 = 0, len2 = 0;
     while (current1 != nullptr)
     {
@@ -36,12 +33,8 @@ Node *findIntersection(Node *head1, Node *head2)
         len2++;
         current2 = current2->next;
     }
-
-    // Reset pointers to the heads of both lists
     current1 = head1;
     current2 = head2;
-
-    // Move the pointer of the longer list ahead by the difference in lengths
     if (len1 > len2)
     {
         for (int i = 0; i < len1 - len2; i++)
@@ -57,16 +50,15 @@ Node *findIntersection(Node *head1, Node *head2)
         }
     }
 
-    // Now move both pointers until they meet at the intersection point
     while (current1 != nullptr && current2 != nullptr)
     {
         if (current1 == current2)
+        {
             return current1; // Intersection found
-
+        }
         current1 = current1->next;
         current2 = current2->next;
     }
-
     return nullptr; // No intersection found
 }
 
@@ -86,7 +78,8 @@ int main()
 
     // Create second linked list: 2 -> 4 -> 5 -> 7 -> 9
     Node *f = new Node(2);
-    Node *g = new Node(4);  
+    Node *g = new Node(4);
+
     Node *h = c; // Intersection at node with value 5
     Node *i = d; // Intersection at node with value 7
     Node *j = e; // Intersection at node with value 9
@@ -96,15 +89,14 @@ int main()
     h->next = i;
     i->next = j;
 
-    Node *intersection = findIntersection(a, f);
+    Node *intersection = findIntersectionOptimized(a, f);
     if (intersection != nullptr)
     {
-        cout << "Intersection found at node with value: " << intersection->val << endl;
+        cout << "Intersection at node with value: " << intersection->val << endl;
     }
     else
     {
         cout << "No intersection found." << endl;
     }
-
     return 0;
 }
