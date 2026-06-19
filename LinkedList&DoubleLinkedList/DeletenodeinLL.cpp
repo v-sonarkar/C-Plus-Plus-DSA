@@ -22,30 +22,29 @@ void printList(Node* head) {
     cout << endl;
 }
 
+// Function to delete a specific node
 void deleteNode(Node*& head, int key) {
     if (head == nullptr) return; // List is empty
 
-    // If the node to be deleted is the head node
+    // If the head node itself holds the key to be deleted
     if (head->val == key) {
-        Node* temp = head;
-        head = head->next;
-        delete temp;
+        Node* temp = head; // Store the current head
+        head = head->next; // Move head to the next node
+        delete temp; // Delete the old head
         return;
     }
 
     Node* current = head;
-    while (current->next != nullptr && current->next->val != key) {
+    while (current->next != nullptr && current->next->val != key) { // Traverse the list to find the node to be deleted
         current = current->next;
     }
 
-    if (current->next == nullptr) {
-        cout << "Node with value " << key << " not found." << endl;
-        return;
-    }
-
-    Node* temp = current->next;
-    current->next = current->next->next;
-    delete temp;
+    if (current->next == nullptr) return; // Key not found in the list
+    
+    Node* temp = current->next; // Node to be deleted
+    current->next = current->next->next; // Bypass the node to be deleted
+    delete temp; // Delete the node
+     
 }
 
 int main() {
