@@ -23,14 +23,14 @@ Node *reverseList(Node *head)
 {
     Node *prev = nullptr;
     Node *current = head;
-    Node *next = nullptr;
+    Node *Next = nullptr;
 
     while (current != nullptr)
     {
-        next = current->next; // Store the next node
+        Next = current->next; // Store the next node
         current->next = prev; // Reverse the link
         prev = current;       // Move prev to current node
-        current = next;       // Move current to next node
+        current = Next;       // Move current to next node
     }
 
     return prev; // Return the new head of the reversed list
